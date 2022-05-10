@@ -1,0 +1,213 @@
+﻿<div class="fixed-sidebar-left">
+    <ul class="nav navbar-nav side-nav nicescroll-bar">
+        <li>
+            <a asp-area="Dashboard" asp-controller="MyDashboard" asp-action="Index">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-home mr-20"></i>
+                    <span class="right-nav-text">داشبورد</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+        <li>
+            <a asp-area="Dashboard" asp-controller="Account" asp-action="Profile">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-account-box-o mr-20"></i>
+                    <span class="right-nav-text">پروفایل من</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+        <li>
+            <a asp-area="Dashboard" asp-controller="Account" asp-action="Wallet">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-money-box mr-20"></i>
+                    <span class="right-nav-text">کیف پول من</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+        <li class="navigation-header">
+            <span>مدیریت</span>
+            <i class="zmdi zmdi-more"></i>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse"
+               data-target="#dashboard_category">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-folder mr-20"></i>
+                    <span class="right-nav-text">دسته بندی ها</span>
+                </div>
+                <div class="pull-right">
+                    <i class="zmdi zmdi-caret-down"></i>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <ul id="dashboard_category" class="collapse collapse-level-1">
+                <li>
+                    <a asp-area="Dashboard" asp-controller="Category" asp-action="Index">دسته بندی ها</a>
+                </li>
+
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse"
+               data-target="#dashboard_ads">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-flag mr-20"></i>
+                    <span class="right-nav-text">تبلیغات</span>
+                </div><div class="pull-right">
+                    <i class="zmdi zmdi-caret-down"></i>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <ul id="dashboard_ads" class="collapse collapse-level-1">
+                <li>
+                    <a asp-area="Dashboard" asp-controller="Ads" asp-action="Index">تبلیغات</a>
+                </li>
+                <li>
+                    <a asp-area="Dashboard" asp-controller="AdsPackage" asp-action="Index">بسته های تبلیغ</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse"
+               data-target="#dashboard_product">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-book mr-20"></i>
+                    <span class="right-nav-text">کالا ها</span>
+                </div><div class="pull-right">
+                    <i class="zmdi zmdi-caret-down"></i>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <ul id="dashboard_product" class="collapse collapse-level-1">
+                <li>
+                    <a asp-area="Dashboard" asp-controller="Product" asp-action="Index">کالا ها</a>
+                </li>
+                <li>
+                    <a asp-area="Dashboard" asp-controller="DP" asp-action="Index">قیمت روزانه</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a asp-area="Dashboard" asp-controller="Project" asp-action="Index">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-tv-list mr-20"></i>
+                    <span class="right-nav-text">پروژه ها</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+        <li>
+            <a asp-area="Dashboard" asp-controller="Tender" asp-action="Index">
+                <div class="pull-left">
+                    <i class="fa fa-legal mr-20"></i>
+                    <span class="right-nav-text">مناقصه / مزایده</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+        <li>
+            <a asp-area="Dashboard" asp-controller="Event" asp-action="Index">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-comment-list mr-20"></i>
+                    <span class="right-nav-text">رویداد ها</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+        <li>
+            <a asp-area="Dashboard" asp-controller="Job" asp-action="Index">
+                <div class="pull-left">
+                    <i class="glyphicon glyphicon-cog mr-20"></i>
+                    <span class="right-nav-text">مشاغل</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse"
+               data-target="#dashboard_report">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-bug mr-20"></i>
+                    <span class="right-nav-text">گزارشات</span>
+                </div><div class="pull-right">
+                    <i class="zmdi zmdi-caret-down"></i>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <ul id="dashboard_report" class="collapse collapse-level-1">
+                <li>
+                    <a asp-area="Dashboard" asp-controller="Report" asp-action="Index">گزارشات</a>
+                </li>
+                <li>
+                    <a asp-area="Dashboard" asp-controller="ReportType" asp-action="Index">انواع گزارش</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse"
+               data-target="#dashboard_user">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-account-add mr-20"></i>
+                    <span class="right-nav-text">کاربران</span>
+                </div><div class="pull-right">
+                    <i class="zmdi zmdi-caret-down"></i>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <ul id="dashboard_user" class="collapse collapse-level-1">
+                <li>
+                    <a asp-area="Dashboard" asp-controller="User" asp-action="Index">کاربران</a>
+                </li>
+                <li>
+                    <a asp-area="Dashboard" asp-controller="Transactions" asp-action="Index">تراکنش ها</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a asp-area="Dashboard" asp-controller="BankTransactions" asp-action="Index">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-money mr-20"></i>
+                    <span class="right-nav-text">تراکنش های بانکی</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+
+        <li class="navigation-header">
+            <span>سیستمی</span>
+            <i class="zmdi zmdi-more"></i>
+        </li>
+        <li>
+            <a target="_blank" href="~/Swagger">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-link mr-20"></i>
+                    <span class="right-nav-text">Swagger</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+        <li>
+            <a asp-area="Dashboard" asp-controller="Log" asp-action="Index">
+                <div class="pull-left">
+                    <i class="zmdi zmdi-file mr-20"></i>
+                    <span class="right-nav-text">Logs</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+        <li>
+            <a asp-area="Dashboard" asp-controller="Language" asp-action="Index">
+                <div class="pull-left">
+                    <i class="glyphicon glyphicon-flag mr-20"></i>
+                    <span class="right-nav-text">زبان ها</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        </li>
+    </ul>
+</div>

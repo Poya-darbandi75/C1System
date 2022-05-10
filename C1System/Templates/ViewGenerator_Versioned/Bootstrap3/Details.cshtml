@@ -1,0 +1,191 @@
+﻿@inherits Microsoft.VisualStudio.Web.CodeGeneration.Templating.RazorTemplateBase
+@using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore
+@using System.Collections.Generic
+@using System.Linq
+@@model @Model.ViewDataTypeName
+
+@{
+    if (Model.IsPartialView)
+    {
+    }
+    else if (Model.IsLayoutPageSelected)
+    {
+@:@@{
+    @:ViewData["Title"] = "@Model.ViewName";
+        if (!string.IsNullOrEmpty(Model.LayoutPageFile))
+        {
+    @:Layout = "@Model.LayoutPageFile";
+        }
+@:}
+@:
+    }
+    else
+    {
+@:@@{
+    @:Layout = null;
+@:}
+@:
+@:<!DOCTYPE html>
+@:
+@:<html>
+@:<head>
+    @:<meta name="viewport" content="width=device-width" />
+    @:<title>@Model.ViewName</title>
+@:</head>
+@:<body>
+@:
+        //    PushIndent("    ");
+    }
+@:<div class="row">
+@:<form asp-area="Dashboard" asp-action="@Model.ViewName"  enctype="multipart/form-data">
+    @:<div class="col-md-8">        
+            @:<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        foreach (PropertyMetadata property in Model.ModelMetadata.Properties)
+        {
+            if (property.IsPrimaryKey)
+            {
+            @:<input type="hidden" asp-for="@property.PropertyName" />
+                continue;
+            }
+
+            if (property.Scaffold)
+            {
+                if (property.IsReadOnly)
+                {
+                    continue;
+                }
+
+                if (property.IsForeignKey)
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@property.PropertyName" class="control-label"></label>
+                @:<select asp-for="@property.PropertyName" class="form-control" asp-items="ViewBag.@property.PropertyName"></select>
+                @:<span asp-validation-for="@property.PropertyName" class="text-danger"></span>
+            @:</div>
+                    continue;
+                }
+
+                bool isCheckbox = property.TypeName.Equals("System.Boolean");
+                if (isCheckbox)
+                {
+            @:<div class="form-group">
+                @:<div class="checkbox checkbox-primary">
+                    
+                    @:<input asp-for="@property.PropertyName" /> 
+                    @:<label for="@property.PropertyName">
+                    @:    @@Html.DisplayNameFor(model => model.@GetValueExpression(property))
+                    @:</label>
+                @:</div>
+            @:</div>
+                }
+                else if (property.IsEnum && !property.IsEnumFlags)
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@property.PropertyName" class="control-label"></label>
+                @:<select asp-for="@property.PropertyName" class="form-control"></select>
+                @:<span asp-validation-for="@property.PropertyName" class="text-danger"></span>
+            @:</div>
+                }
+                else if (property.IsMultilineText)
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@property.PropertyName" class="control-label"></label>
+                @:<textarea asp-for="@property.PropertyName" class="form-control"></textarea>
+                @:<span asp-validation-for="@property.PropertyName" class="text-danger"></span>
+            @:</div>
+                }
+                else
+                {
+            @:<div class="form-group">
+                @:<label asp-for="@property.PropertyName" class="control-label"></label>
+                @:<input asp-for="@property.PropertyName" class="form-control" />
+                @:<span asp-validation-for="@property.PropertyName" class="text-danger"></span>
+            @:</div>
+                }
+            }
+            // Ideally we shouldn't be here  but if the user marks the foreign key as [ScaffoldColumn(false)], we want to atleast try to make it work.
+            else if (property.IsForeignKey)
+            {
+        @:<input type="hidden" asp-for="@property.PropertyName" />
+                continue;
+            }
+        }
+    }
+            <div class="form-group row">
+@{
+                string pkName = GetPrimaryKeyName();
+                <input type="submit" name="btn" value="ذخیره" class="col-sm-4 col-md-3 btn btn-success btn-outline fancy-button btn-0" />                
+                if (pkName != null)
+                {
+                @*<a asp-action="Edit" asp-route-id="@@Model.@pkName" class="col-sm-4 col-md-2 btn btn-default">اصلاح</a>*@
+                @: @@if(Model != null){
+                @:<a asp-action="Delete" asp-route-id="@@Model.@pkName" class="col-sm-4 col-md-3 btn btn-warning btn-outline fancy-button btn-0">حذف</a>
+                @:}
+                }
+                else
+                {
+                }
+                @:<a asp-action="Index" class="col-sm-4 col-md-3 btn btn-primary btn-outline fancy-button btn-0">بازگشت</a>
+}
+            </div>
+        
+    </div>
+    <div class="col-md-4">
+	    <div class="panel panel-default card-view">
+		    <div class="panel-heading">
+			    <h6 class="panel-title txt-dark">تنظیمات عمومی</h6>
+		    </div>
+		    <div class="panel-wrapper in">
+			    <div class="panel-body">
+				    @*<div class="row form-group">
+					    <label asp-for="Status" class="control-label col-md-3"></label>
+					    <div class="col-md-9">
+						    <select asp-for="Status" class="form-control" asp-items="ViewBag.Status"></select>
+						    <span asp-validation-for="Status" class="text-danger"></span>
+					    </div>
+				    </div>*@
+				    @*@await Component.InvokeAsync("GeoVC",
+				    new {CountryId= Model.CountryId,
+				    ProvinceId= Model.ProvinceId,
+				    CityId=Model.CityId})*@
+				    @*@await Component.InvokeAsync("UploadFileVC")*@
+			    </div>
+		    </div>
+	    </div>
+    </div>
+</form>
+</div>
+@{
+    if (Model.ReferenceScriptLibraries)
+    {
+@:@@section Scripts {
+    @:@@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@:}
+    }
+    // The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+    if (!Model.IsPartialView && !Model.IsLayoutPageSelected)
+    {
+@:</body>
+@:</html>
+    }
+}
+@functions
+{
+    string GetPrimaryKeyName()
+    {
+        return (Model.ModelMetadata.PrimaryKeys != null && Model.ModelMetadata.PrimaryKeys.Length == 1)
+        ? Model.ModelMetadata.PrimaryKeys[0].PropertyName
+        : null;
+    }
+    
+    string GetAssociationName(IPropertyMetadata property)
+    {
+        //to do : Implement properly.
+        return property.PropertyName;
+    }
+
+    string GetValueExpression(IPropertyMetadata property)
+    {
+        return property.PropertyName;
+    }
+}

@@ -1,0 +1,24 @@
+﻿<div class="modal fade2" id="NewTagModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="FullTextModalTitle">تعریف تگ جدید</h5>
+				<button type="button" class="close m-0 p-0" data-dismiss="modal" aria-label="Close">
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body pt-0">
+				<form asp-area="Dashboard" asp-controller="Tags" asp-action="Create" method="post"
+				      data-ajax="true" data-ajax-method="post" data-ajax-complete="closeNewTag">
+					<div class="form-group mb-2">
+						<label for="TagName" class="control-label"></label>
+						<input id="TagName" name="TagName" class="form-control" placeholder="هشتگ جدید" />
+					</div>
+					<div class="form-group">
+						<input type="submit" value="ثبت تگ جدید" class="btn btn-success btn-block" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

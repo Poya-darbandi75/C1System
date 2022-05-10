@@ -1,0 +1,33 @@
+/*================================================================================
+	Item Name: Stack - Responsive Admin Theme
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+A FILE FOR RTL SUPPORT RELATED ONLY
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+
+.material-icons {
+    font-family: feather !important;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+    .material-icons:before {
+        content: "\e9d2";
+    }
+.p-title {
+    padding: 20px 15px !important;
+    font-weight: bolder;
+}

@@ -1,0 +1,114 @@
+﻿@inherits Microsoft.VisualStudio.Web.CodeGeneration.Templating.RazorTemplateBase
+@using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore
+@using System.Collections.Generic
+@using System.Linq
+@@model @GetEnumerableTypeExpression(Model.ViewDataTypeName)
+
+@{
+    if (Model.IsPartialView)
+    {
+    }
+    else if (Model.IsLayoutPageSelected)
+    {
+@:@@{
+    @:ViewData["Title"] = "@Model.ViewName";
+        if (!string.IsNullOrEmpty(Model.LayoutPageFile))
+        {
+    @:Layout = "@Model.LayoutPageFile";
+        }
+@:}
+@:
+    }
+    else
+    {
+@:@@{
+    @:Layout = null;
+@:}
+@:
+@:<!DOCTYPE html>
+@:
+@:<html>
+@:<head>
+    @:<meta name="viewport" content="width=device-width" />
+    @:<title>@Model.ViewName</title>
+@:</head>
+@:<body>
+        //    PushIndent("    ");
+    }
+        Dictionary<string, IPropertyMetadata> propertyLookup = ((IModelMetadata)Model.ModelMetadata).Properties.ToDictionary(x => x.PropertyName, x => x);
+        Dictionary<string, INavigationMetadata> navigationLookup = ((IModelMetadata)Model.ModelMetadata).Navigations.ToDictionary(x => x.AssociationPropertyName, x => x);
+        string pkName = GetPrimaryKeyName();
+@:<div class="k-rtl table-responsive text-right 2">
+@:		@@(Html.Kendo().Grid<@Model.ViewDataTypeName>()
+@:  	       .Name("grid")
+@:             .Columns(columns =>
+@:             {
+@:              columns.Bound(c => c.@pkName)
+@:              .ClientTemplate("<a href='@Model.ViewDataTypeShortName/Details/#:data.@pkName#' title='اصلاح'><i class='fa fa-edit mr-5'></i>#:data.Title#</a>");
+foreach (var item in Model.ModelMetadata.ModelType.GetProperties())
+{
+    if (propertyLookup.TryGetValue(item.Name, out IPropertyMetadata property)
+            && property.Scaffold && !property.IsForeignKey && !property.IsPrimaryKey)
+    {
+                if(property.PropertyName==pkName){
+@:              columns.Bound(c => c.@GetValueExpression(property))
+@:                  .ClientTemplate("<a href='@Model.ViewDataTypeShortName/Edit/#:data.@pkName#' title='اصلاح'><i class='fa fa-edit mr-5'></i>#:data.Title#</a>");
+@:              ;
+                }
+                else{
+@:              columns.Bound(c => c.@GetValueExpression(property));
+                }
+
+    }
+}
+
+@:           })
+@:           .ToolBar(toolbar => toolbar.ClientTemplate("<a href='@Model.ViewDataTypeShortName/Details' class='btn btn-success k-button' title='جدید'><i class='fa fa-plus-circle mr-5'></i>جدید</a>"))
+@:           .HtmlAttributes(new { style = "" })
+@:           //.Groupable()
+@:           .Sortable()
+@:           .Filterable()
+@:           .Pageable(pageable => pageable
+@:               .Refresh(true)
+@:               .PageSizes(new int[] { 50,100,200})
+@:               .ButtonCount(5))
+@:           .DataSource(dataSource => dataSource
+@:               .Ajax()
+@:               //.Group(g => g.Add(p => p.Language))
+@:               .Read(read => read.Action("Read", "@Model.ViewDataTypeShortName", new {Area = "Dashboard"}))
+@:               .PageSize(50)
+@:               .ServerOperation(true)
+@:               )
+@:      )
+@:</div>
+    if(!Model.IsPartialView && !Model.IsLayoutPageSelected)
+    {
+        //ClearIndent();
+@:</body>
+@:</html>
+    }
+}
+@functions
+{
+    string GetPrimaryKeyName()
+    {
+        return (Model.ModelMetadata.PrimaryKeys != null && Model.ModelMetadata.PrimaryKeys.Length == 1)
+        ? Model.ModelMetadata.PrimaryKeys[0].PropertyName
+        : null;
+    }
+
+    string GetValueExpression(IPropertyMetadata property)
+    {
+        return property.PropertyName;
+    }
+
+    string GetValueExpression(INavigationMetadata navigation)
+    {
+        return navigation.AssociationPropertyName;
+    }
+
+    string GetEnumerableTypeExpression(string typeName)
+    {
+        return "IEnumerable<" + typeName + ">";
+    }
+}
